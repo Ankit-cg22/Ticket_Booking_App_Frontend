@@ -14,6 +14,7 @@ import './index.css'
 import AuthComponent from './components/AuthComponent.jsx';
 import Events from './components/Events.jsx';
 import AddEvent from './components/AddEvent.jsx';
+import TicketInfo from './components/TicketInfo.jsx';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path:"/addEvent",
     element:<Sidebar><AddEvent/></Sidebar>
+  },
+  {
+    path:"/viewTicketInfo",
+    element:<Sidebar><TicketInfo/></Sidebar>
   }
 ]);
 

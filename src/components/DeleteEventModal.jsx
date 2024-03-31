@@ -5,7 +5,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-export default function DeleteEventModal({deleteModalOpen , setDeleteModalOpen, formData, modalStyle , eventsList , setEventsList}) {
+export default function DeleteEventModal({deleteModalOpen , setDeleteModalOpen, eventData, modalStyle , eventsList , setEventsList}) {
     const [loading , setLoading] = useState(false)
     const user = useSelector(state => {
         return state.authReducers.user
@@ -17,10 +17,10 @@ export default function DeleteEventModal({deleteModalOpen , setDeleteModalOpen, 
             jwtToken : user.jwtToken
         }
         setLoading(true)
-        axios.post(`${BASE_BACKEND_URL}/events/deleteEvent/${formData.eventId}` , requestBody)
+        axios.post(`${BASE_BACKEND_URL}/events/deleteEvent/${eventData.eventId}` , requestBody)
         .then(res=>{
-            alert(`Event : ${formData.eventName} has been deleted successfully`)
-            const newEventsList = eventsList.filter(event => event.eventId !== formData.eventId)
+            alert(`Event : ${eventData.eventName} has been deleted successfully`)
+            const newEventsList = eventsList.filter(event => event.eventId !== eventData.eventId)
             setEventsList(newEventsList)
             setDeleteModalOpen(false)
         })
@@ -39,7 +39,7 @@ export default function DeleteEventModal({deleteModalOpen , setDeleteModalOpen, 
         aria-describedby="modal-modal-description"
       >
         <Box sx={modalStyle}>
-            <Typography>Please confirm that you want to delete the following event : <b>{formData.eventName}</b> </Typography>
+            <Typography>Please confirm that you want to delete the following event : <b>{eventData.eventName}</b> </Typography>
             <div className='flex justify-between items-center mt-[1em]'>
                 <Button className='w-[48%]' variant="contained" color="secondary" onClick={()=>deleteEvent()}>
                     {loading ? <CircularProgress size={25} style={{color : "white"}}/> : "Delete"}

@@ -8,13 +8,15 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditEventModal from './EditEventModal'
 import DeleteEventModal from './DeleteEventModal'
+import BookTicketModal from './BookTicketModal'
 
 export default function Events() {
   const [loading, setLoading] = useState(false)
   const [editModalOpen , setEditModalOpen] = useState(false)
   const [deleteModalOpen , setDeleteModalOpen] = useState(false)
+  const [bookTicketModalOpen , setBookTicketModalOpen] = useState(false)
    const [eventsList , setEventsList] = useState([])
-   const [formData, setFormData] = useState({
+   const [eventData, setEventData] = useState({
     eventName : "", 
     eventDescription:"" ,
     eventDate :"" ,
@@ -49,12 +51,16 @@ export default function Events() {
   } , [])
 
   const editEvent = (event) => {
-    setFormData(event)
+    setEventData(event)
     setEditModalOpen(true)
   }
   const deleteEvent = (event) =>{
-    setFormData(event)
+    setEventData(event)
     setDeleteModalOpen(true)
+  }
+  const handleBookTicketClick = (event) => {
+    setEventData(event)
+    setBookTicketModalOpen(true)
   }
   const modalStyle = {
     position: 'absolute',
@@ -112,7 +118,7 @@ export default function Events() {
                           <DeleteIcon className="!text-[1.2em] cursor-pointer " color="primary" onClick={()=>deleteEvent(event)}/>
                         </div>
                       }
-                      <Button className='!absolute right-[10px]' size="small" variant="outlined" color="primary" onClick={()=>navigate(`/eventInfo/${event.eventId}`)}>
+                      <Button className='!absolute right-[10px]' size="small" variant="outlined" color="primary" onClick={() => handleBookTicketClick(event)}>
                         Book Ticket
                       </Button>
                     </CardActions>
@@ -125,8 +131,9 @@ export default function Events() {
         }
       </Grid>
       </div>
-      <EditEventModal editModalOpen={editModalOpen} setEditModalOpen={setEditModalOpen} formData={formData} setFormData={setFormData} eventsList={eventsList} setEventsList={setEventsList} modalStyle={modalStyle}/>
-      <DeleteEventModal deleteModalOpen={deleteModalOpen} setDeleteModalOpen={setDeleteModalOpen} modalStyle={modalStyle} formData={formData} eventsList={eventsList} setEventsList={setEventsList}/>
+      <EditEventModal editModalOpen={editModalOpen} setEditModalOpen={setEditModalOpen} formData={eventData} setFormData={setEventData} eventsList={eventsList} setEventsList={setEventsList} modalStyle={modalStyle}/>
+      <DeleteEventModal deleteModalOpen={deleteModalOpen} setDeleteModalOpen={setDeleteModalOpen} modalStyle={modalStyle} eventData={eventData} eventsList={eventsList} setEventsList={setEventsList}/>
+      <BookTicketModal bookTicketModalOpen={bookTicketModalOpen} setBookTicketModalOpen={setBookTicketModalOpen} user={user} modalStyle={modalStyle} eventData={eventData} />
     </div>
   )
 }
