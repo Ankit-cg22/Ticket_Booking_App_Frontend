@@ -12,6 +12,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Sidebar from './components/Sidebar.jsx';
 import './index.css'
 import AuthComponent from './components/AuthComponent.jsx';
+import Events from './components/Events.jsx';
+import AddEvent from './components/AddEvent.jsx';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
   {
     path:"/auth" , 
     element : <Sidebar><AuthComponent/></Sidebar>
+  },
+  {
+    path:"/events",
+    element:<Sidebar><Events/></Sidebar>
+  },
+  {
+    path:"/addEvent",
+    element:<Sidebar><AddEvent/></Sidebar>
   }
 ]);
 
