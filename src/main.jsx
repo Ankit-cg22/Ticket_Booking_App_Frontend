@@ -15,6 +15,8 @@ import AuthComponent from './components/AuthComponent.jsx';
 import Events from './components/Events.jsx';
 import AddEvent from './components/AddEvent.jsx';
 import TicketInfo from './components/TicketInfo.jsx';
+import AdminRequestMail from './components/AdminRequestMail.jsx';
+import AdminRequestAcceptance from './components/AdminRequestAcceptance.jsx';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
   {
     path:"/viewTicketInfo",
     element:<Sidebar><TicketInfo/></Sidebar>
+  },
+  {
+    path:"/adminRequestMail" , 
+    element:<Sidebar><AdminRequestMail/></Sidebar>
+  },
+  {
+    path:"/adminRequestAcceptance/:token",
+    element:<Sidebar><AdminRequestAcceptance/></Sidebar>
   }
 ]);
 

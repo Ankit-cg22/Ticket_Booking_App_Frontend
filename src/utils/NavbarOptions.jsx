@@ -2,6 +2,7 @@ import StadiumIcon from '@mui/icons-material/Stadium';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import FeedIcon from '@mui/icons-material/Feed';
+import MailIcon from '@mui/icons-material/Mail';
 
 export const UserNavbarOptions = [
     {text : "Events" , link:"/events" , icon:StadiumIcon } ,
@@ -10,6 +11,7 @@ export const UserNavbarOptions = [
 
 export const AdminNavbarOptions = [
     {text: "Add Event" , link:"/addEvent" , icon : AddBoxIcon} ,
-    {text: "View Ticket Info" , link : "/viewTicketInfo" , icon : FeedIcon}
+    {text: "View Ticket Info" , link : "/viewTicketInfo" , icon : FeedIcon} ,
+    {text: "Admin Request Mail" , link : "/adminRequestMail" , icon : MailIcon}
 ]
 
