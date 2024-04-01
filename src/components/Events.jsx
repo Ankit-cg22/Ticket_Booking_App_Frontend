@@ -111,7 +111,7 @@ export default function Events() {
                         </Typography>
                       </CardContent>
                     </CardActionArea>
-                    <CardActions className='relative mb-[0.3em]'>
+                    <CardActions className='relative !mb-[1em]'>
                       {user.isAdmin &&
                         <div className='flex justify-between items-center ml-[0.2em]'>
                           <EditIcon className="!text-[1.2em] mr-[0.8em] cursor-pointer" color="primary" onClick={()=>editEvent(event)}/>
