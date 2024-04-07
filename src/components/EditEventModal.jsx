@@ -83,7 +83,7 @@ export default function EditEventModal({editModalOpen , setEditModalOpen , formD
                     variant="outlined"
                     margin="normal"
                     fullWidth
-                    label="Event Date"
+                    label="Event Date(YYYY-MM-DD)"
                     name="eventDate"
                     defaultValue={formData.eventDate}
                     onChange={handleInputChange}

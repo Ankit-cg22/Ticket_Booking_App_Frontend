@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { AppBar, Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, Modal, Paper, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Grid, LinearProgress, Modal, Paper, Toolbar, Tooltip, Typography } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -87,24 +87,30 @@ export default function Events() {
           eventsList.length?
           (
             eventsList.map((event , index) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+              <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
                 <Card sx={{ maxWidth: 345 }}>
                   <CardActionArea>
-                    {/* <CardMedia
+                    <CardMedia
                       component="img"
-                      height="140"
-                      image="/static/images/cards/contemplative-reptile.jpg"
-                      alt="green iguana"
-                    /> */}
+                      className='!h-[180px]'
+                      image="/static/images/events.jpg"
+                      alt="events_image"
+                    />
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {event.eventName} {event.eventDate.substring(0 , 10)}
+                        <Typography gutterBottom component="div">
+                          <div className='flex justify-between items-center'>
+                            <Typography variant="body1">{event.eventName}</Typography>
+                            <Typography className='bg-cyan-200 rounded-md !p-[0.2em] !text-[0.8em]'>{event.eventDate.substring(0 , 10)}</Typography>
+                          </div>
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" color="text.secondary" className='!my-[1em]'>
                           {event.eventDescription}
                         </Typography>
                         <Typography>
-                          {event.ticketsBooked}/{event.totalTickets} booked 
+                          
+                          <Tooltip title={`${event.ticketsBooked}/${event.totalTickets} tickets booked `}>
+                            <LinearProgress className='!p-[0.2em] rounded-[0.3em]' variant="determinate" value={((event.ticketsBooked)/(event.totalTickets))*100} />
+                          </Tooltip>
                         </Typography>
                       </CardContent>
                     </CardActionArea>

@@ -78,7 +78,7 @@ export default function AddEvent() {
                     variant="outlined"
                     margin="normal"
                     fullWidth
-                    label="Event Date"
+                    label="Event Date(YYYY-MM-DD)"
                     name="eventDate"
                     value={formData.eventDate}
                     onChange={handleInputChange}
