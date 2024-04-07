@@ -2,7 +2,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {
-  createHashRouter,
+  createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 import Home from './components/Home.jsx';
@@ -19,7 +19,7 @@ import AdminRequestMail from './components/AdminRequestMail.jsx';
 import AdminRequestAcceptance from './components/AdminRequestAcceptance.jsx';
 import MyTickets from './components/MyTickets.jsx';
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <Sidebar><Home/></Sidebar>
