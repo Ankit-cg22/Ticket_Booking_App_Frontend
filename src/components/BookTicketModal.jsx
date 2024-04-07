@@ -4,6 +4,7 @@ import { Box, Button, CircularProgress, Modal, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import List from './List'
 import axios from 'axios'
+import { BASE_BACKEND_URL, getAxiosConfig } from '../utils/requestUtils'
 
 export default function BookTicketModal({bookTicketModalOpen ,setBookTicketModalOpen , user , modalStyle , eventData}) {
     const ticketDetails = [
@@ -12,18 +13,15 @@ export default function BookTicketModal({bookTicketModalOpen ,setBookTicketModal
         {key : "Event Date" , value : eventData.eventDate }
     ]
     const [loading , setLoading] = useState(false)
-    const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_URL
-
     const bookTicket = () => {
         const requestBody = {
             ticketData: {
                 name : user.name , 
                 eventId : eventData.eventId 
-            },
-            jwtToken : user.jwtToken
+            }
         }
         setLoading(true)
-        axios.post(`${BASE_BACKEND_URL}/tickets/bookTicket` , requestBody)
+        axios.post(`${BASE_BACKEND_URL}/tickets/bookTicket` , requestBody , getAxiosConfig(user.jwtToken))
         .then(res=>{
             const ticketId = res.data.data.ticketData.ticketId 
             alert(`Ticket booked successfully . Ticket Id is ${ticketId} . You will find this ticket in 'My Tickets' section.`)

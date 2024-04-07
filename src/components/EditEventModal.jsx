@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { BASE_BACKEND_URL, getAxiosConfig } from '../utils/requestUtils';
 export default function EditEventModal({editModalOpen , setEditModalOpen , formData , setFormData ,eventsList, setEventsList , modalStyle}) {
     const [loading , setLoading] = useState()
     
@@ -14,7 +15,6 @@ export default function EditEventModal({editModalOpen , setEditModalOpen , formD
     const user = useSelector(state => {
       return state.authReducers.user 
     })
-    const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_URL
 
   const handleSubmit = (e)=>{
     e.preventDefault()
@@ -25,11 +25,10 @@ export default function EditEventModal({editModalOpen , setEditModalOpen , formD
         eventDescription : formData.eventDescription , 
         eventDate : formData.eventDate , 
         totalTickets : formData.totalTickets 
-      },
-      jwtToken : user.jwtToken 
+      }
     }
     setLoading(true)
-    axios.post(`${BASE_BACKEND_URL}/events/updateEvent/${formData.eventId}` , requestBody)
+    axios.post(`${BASE_BACKEND_URL}/events/updateEvent/${formData.eventId}` , requestBody , getAxiosConfig(user.jwtToken))
     .then(res=>{
       alert(res.data.msg)
       const updatedEvent = res.data.eventData

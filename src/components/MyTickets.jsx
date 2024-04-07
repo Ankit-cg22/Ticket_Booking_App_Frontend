@@ -4,6 +4,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import List from './List'
+import { BASE_BACKEND_URL, getAxiosConfig } from '../utils/requestUtils'
 
 function MyTickets() {
     const [loading , setLoading] = useState(false)
@@ -11,14 +12,10 @@ function MyTickets() {
     const user = useSelector(state=>{
         return state.authReducers.user 
     })
-    const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_URL
     
     useEffect(()=>{
-        const requestBody = {
-            jwtToken : user.jwtToken
-        }
         setLoading(true)
-        axios.post(`${BASE_BACKEND_URL}/tickets/getAllTickets/${user.userId}` , requestBody)
+        axios.get(`${BASE_BACKEND_URL}/tickets/getAllTickets/${user.userId}` , getAxiosConfig(user.jwtToken))
         .then(res=>{
             const ticketInfo = res.data.data 
             setTicketInfo(ticketInfo)

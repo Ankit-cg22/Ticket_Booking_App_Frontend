@@ -3,15 +3,15 @@ import { Typography } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { BASE_BACKEND_URL } from '../utils/requestUtils'
 
 export default function AdminRequestAcceptance() {
     const {token} = useParams()
     const [message , setMessage] = useState('')
-    const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_URL
     useEffect(()=>{
         const requestBody = {token}
         setMessage("Please wait while we process your Admin role acceptance.Thank you for your patience.")
-        axios.post(`${BASE_BACKEND_URL}/auth/adminRequestAcceptance` , requestBody)
+        axios.post(`${BASE_BACKEND_URL}/auth/adminRequestAcceptance` , requestBody )
         .then(res=>{
             setMessage(res.data.msg + ' Thank you for accepting Admin role.')
         })

@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditEventModal from './EditEventModal'
 import DeleteEventModal from './DeleteEventModal'
 import BookTicketModal from './BookTicketModal'
+import { BASE_BACKEND_URL, getAxiosConfig } from '../utils/requestUtils'
 
 export default function Events() {
   const [loading, setLoading] = useState(false)
@@ -22,17 +23,13 @@ export default function Events() {
     eventDate :"" ,
     totalTickets:""
   });
-  const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_URL
   const navigate = useNavigate()
   const user = useSelector(state => {
     return state.authReducers.user
   })
   useEffect(()=>{
     setLoading(true)
-    const requestBody = {
-      jwtToken : user.jwtToken
-    }
-    axios.post(`${BASE_BACKEND_URL}/events/getAllFutureEvents` , requestBody)
+    axios.get(`${BASE_BACKEND_URL}/events/getAllFutureEvents` , getAxiosConfig(user.jwtToken))
     .then(res => {
       const eventData = res.data.eventsData
       for(const ev of eventData) {

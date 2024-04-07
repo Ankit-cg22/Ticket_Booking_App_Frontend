@@ -3,24 +3,15 @@ import React, { useState } from 'react';
 import {
   TextField,
   Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Typography,
   Container,
   CircularProgress,
-  Modal,
-  Box,
-  Paper,
 } from '@mui/material';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux'
-import { addUser } from '../features/auth/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux'
+import { BASE_BACKEND_URL, getAxiosConfig } from '../utils/requestUtils';
 
 export default function AddEvent() {
-    const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_URL
     const [loading , setLoading] = useState(false)
     const user = useSelector(state => {
         return state.authReducers.user
@@ -38,10 +29,9 @@ export default function AddEvent() {
         e.preventDefault()
         setLoading(true)
         const requestBody = {
-            eventData : formData , 
-            jwtToken : user.jwtToken
+            eventData : formData 
         }
-        axios.post(`${BASE_BACKEND_URL}/events/createEvent` , requestBody)
+        axios.post(`${BASE_BACKEND_URL}/events/createEvent`  , requestBody , getAxiosConfig(user.jwtToken))
         .then(res=>{
             const data = res.data 
             setFormData({

@@ -3,6 +3,7 @@ import { Button, CircularProgress, TextField } from '@mui/material'
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { BASE_BACKEND_URL, getAxiosConfig } from '../utils/requestUtils'
 
 export default function AdminRequestMail() {
   const [emailId , setEmailId] = useState()
@@ -10,18 +11,15 @@ export default function AdminRequestMail() {
   const user = useSelector(state=>{
     return state.authReducers.user
   })
-  const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_URL
-
   const handleSendAdminRequestMail = (e) =>{
     e.preventDefault()
     const requestBody = {
         userData: {
             email : emailId
-        },
-        jwtToken : user.jwtToken
+        }
     }
     setLoading(true)
-    axios.post(`${BASE_BACKEND_URL}/auth/sendAdminRequestMail` , requestBody)
+    axios.post(`${BASE_BACKEND_URL}/auth/sendAdminRequestMail` , requestBody , getAxiosConfig(user.jwtToken))
     .then(res=>{
         alert(res.data.msg)
         setEmailId("")

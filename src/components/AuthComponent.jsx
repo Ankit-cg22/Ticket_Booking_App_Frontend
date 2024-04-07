@@ -18,6 +18,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux'
 import { addUser } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { BASE_BACKEND_URL } from '../utils/requestUtils';
 
 const AuthComponent = () => {
   const [loading , setLoading] = useState(false)
@@ -37,8 +38,6 @@ const AuthComponent = () => {
     setIsLogin((prev) => !prev);
   };
 
-  const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_URL
-  
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

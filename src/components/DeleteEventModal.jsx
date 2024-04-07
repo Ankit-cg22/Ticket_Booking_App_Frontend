@@ -4,20 +4,17 @@ import { Box, Button, CircularProgress, Modal, Typography } from '@mui/material'
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { BASE_BACKEND_URL, getAxiosConfig } from '../utils/requestUtils'
 
 export default function DeleteEventModal({deleteModalOpen , setDeleteModalOpen, eventData, modalStyle , eventsList , setEventsList}) {
     const [loading , setLoading] = useState(false)
     const user = useSelector(state => {
         return state.authReducers.user
     })
-    const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_URL
 
     const deleteEvent=()=>{
-        const requestBody = {
-            jwtToken : user.jwtToken
-        }
         setLoading(true)
-        axios.post(`${BASE_BACKEND_URL}/events/deleteEvent/${eventData.eventId}` , requestBody)
+        axios.delete(`${BASE_BACKEND_URL}/events/deleteEvent/${eventData.eventId}` , getAxiosConfig(user.jwtToken))
         .then(res=>{
             alert(`Event : ${eventData.eventName} has been deleted successfully`)
             const newEventsList = eventsList.filter(event => event.eventId !== eventData.eventId)

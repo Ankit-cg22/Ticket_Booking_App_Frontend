@@ -4,6 +4,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import List from './List'
+import { BASE_BACKEND_URL, getAxiosConfig } from '../utils/requestUtils'
 
 export default function TicketInfo() {
     const [ticketId , setTicketId] = useState()
@@ -13,7 +14,6 @@ export default function TicketInfo() {
     const user = useSelector(state=>{
         return state.authReducers.user
     })
-    const BASE_BACKEND_URL = import.meta.env.VITE_BASE_BACKEND_URL
 
     const setTicketInfoState = (ticketData) =>{
         const ticketDataInfo = [
@@ -26,11 +26,8 @@ export default function TicketInfo() {
     }
     const handleFetchTicketInfo = (e) => {
         e.preventDefault()
-        const requestBody ={
-            jwtToken : user.jwtToken
-        }
         setLoadingTicketInfoFetching(true)
-        axios.post(`${BASE_BACKEND_URL}/tickets/getTicketInfo/${ticketId}` , requestBody)
+        axios.get(`${BASE_BACKEND_URL}/tickets/getTicketInfo/${ticketId}` , getAxiosConfig(user.jwtToken))
         .then(res=>{
             const ticketData = res.data.data.ticketData
             setTicketInfoState(ticketData)
@@ -45,11 +42,8 @@ export default function TicketInfo() {
     }
 
     const markCheckedIn = () =>{
-        const requestBody ={
-            jwtToken : user.jwtToken
-        }
         setLoadingMarkingCheckedIn(true)
-        axios.post(`${BASE_BACKEND_URL}/tickets/markCheckedIn/${ticketId}` , requestBody )
+        axios.get(`${BASE_BACKEND_URL}/tickets/markCheckedIn/${ticketId}` , getAxiosConfig(user.jwtToken) )
         .then(res=>{
             const ticketData = res.data.data.ticketData
             alert(`Ticket with ticketId=${ticketData.ticketId} has been succesfully marked 'Checked In'` )
